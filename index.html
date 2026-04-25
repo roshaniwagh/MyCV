@@ -423,6 +423,13 @@ link.classList.add("active");
 }
 });
 });
+ const navLinksMobile = document.querySelectorAll(".nav-right a");
+
+navLinksMobile.forEach(link => {
+    link.addEventListener("click", () => {
+        document.getElementById("navMenu").classList.remove("show-menu");
+    });
+});   
 </script>
 
 </body>
