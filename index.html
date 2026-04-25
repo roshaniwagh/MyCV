@@ -402,37 +402,29 @@ Extensive experience with Azure DevOps for end-to-end test management, requireme
 </section>
 
 <script>
-function toggleMenu(){
-document.getElementById("navMenu").classList.toggle("show-menu");
-}
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll(".nav-right a");
 
-const sections=document.querySelectorAll("section[id]");
-const navLinks=document.querySelectorAll(".nav-right a");
+window.addEventListener("scroll", () => {
+  let scrollY = window.pageYOffset;
 
-window.addEventListener("scroll",()=>{
-let current="";
-sections.forEach(section=>{
-const top=section.offsetTop-80;
-const height=section.clientHeight;
-if(pageYOffset>=top && pageYOffset<top+height){
-current=section.id;
-}
-});
-navLinks.forEach(link=>{
-link.classList.remove("active");
-if(link.getAttribute("href")==="#"+current){
-link.classList.add("active");
-}
-});
-});
- const navLinksMobile = document.querySelectorAll(".nav-right a");
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    const sectionHeight = section.offsetHeight;
 
-navLinksMobile.forEach(link => {
-    link.addEventListener("click", () => {
-        document.getElementById("navMenu").classList.remove("show-menu");
-    });
-});   
+    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      navLinks.forEach(link => link.classList.remove("active"));
+      const activeLink = document.querySelector(`.nav-right a[href="#${section.id}"]`);
+      if (activeLink) activeLink.classList.add("active");
+    }
+  });
+
+  // 🔥 FIX for last section (important)
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+    navLinks.forEach(link => link.classList.remove("active"));
+    document.querySelector('.nav-right a[href="#education"]').classList.add("active");
+  }
+});
 </script>
-
 </body>
 </html>
